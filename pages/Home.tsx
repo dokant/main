@@ -23,7 +23,8 @@ const Home: React.FC = () => {
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               외국인과 함께하는<br />
-              <span className="text-secondary">든든한 파트너</span>, 청솔행정사사무소
+              <span className="text-secondary">든든한 파트너</span>,<br />
+              청솔행정사사무소
             </h1>
             <p className="text-lg md:text-xl mb-8 text-gray-200 leading-relaxed max-w-2xl">
               비자 연장부터 영주권 취득, 복잡한 행정심판까지.<br />

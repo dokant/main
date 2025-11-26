@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Phone, MessageCircle, CheckCircle } from 'lucide-react';
+import { Send, Phone, MessageCircle, CheckCircle, Loader2 } from 'lucide-react';
 import SectionTitle from '../components/ui/SectionTitle';
 import Button from '../components/ui/Button';
 import { CONTACT_HEADER } from '../src/images/assets';
@@ -8,34 +8,52 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    type: 'visa',
+    type: '출입국/비자',
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Construct email subject and body
-    const subject = `[청솔행정사사무소] 온라인 상담 신청 - ${formData.name}님`;
-    const body = `이름: ${formData.name}
-연락처: ${formData.phone}
-상담분야: ${formData.type}
-문의내용:
-${formData.message}`;
+    try {
+      // Use FormSubmit.co AJAX API for immediate email sending without backend
+      // Note: First time submission requires activation via email for security
+      const response = await fetch("https://formsubmit.co/ajax/cirrus01@naver.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `[청솔행정사사무소] 온라인 상담 신청 - ${formData.name}님`,
+          이름: formData.name,
+          연락처: formData.phone,
+          상담분야: formData.type,
+          문의내용: formData.message,
+          _template: 'table' // Formats the email nicely
+        })
+      });
 
-    // Use mailto link to open email client (simulates sending mail form)
-    window.location.href = `mailto:cirrus01@naver.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Show success screen
-    setIsSubmitted(true);
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert("전송 중 일시적인 오류가 발생했습니다. 잠시 후 다시 시도하거나 전화로 문의 부탁드립니다.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("전송 중 오류가 발생했습니다. 전화로 문의 부탁드립니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Input style for better readability and confirmation
   const inputClassName = "w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 font-medium placeholder-gray-400 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all shadow-sm";
 
   return (
@@ -62,9 +80,9 @@ ${formData.message}`;
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">신청이 접수되었습니다.</h3>
                 <p className="text-gray-600 mb-6">
                   보내주신 내용이 담당자에게 메일로 전달되었습니다.<br />
-                  빠른 시일 내에 연락드리겠습니다.
+                  확인 후 빠른 시일 내에 연락드리겠습니다.
                 </p>
-                <Button onClick={() => setIsSubmitted(false)} variant="outline">
+                <Button onClick={() => { setIsSubmitted(false); setFormData({...formData, message: ''}); }} variant="outline">
                   추가 문의하기
                 </Button>
               </div>
@@ -81,6 +99,7 @@ ${formData.message}`;
                     onChange={handleChange}
                     className={inputClassName}
                     placeholder="홍길동"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -94,6 +113,7 @@ ${formData.message}`;
                     onChange={handleChange}
                     className={inputClassName}
                     placeholder="010-1234-5678"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -104,6 +124,7 @@ ${formData.message}`;
                     value={formData.type}
                     onChange={handleChange}
                     className={inputClassName}
+                    disabled={isSubmitting}
                   >
                     <option value="출입국/비자">출입국/비자 (Visa)</option>
                     <option value="행정심판/구제">행정심판/구제 (Appeal)</option>
@@ -122,10 +143,19 @@ ${formData.message}`;
                     onChange={handleChange}
                     className={inputClassName}
                     placeholder="현재 상황과 궁금하신 점을 간략히 적어주세요."
+                    disabled={isSubmitting}
                   />
                 </div>
-                <Button type="submit" size="lg" fullWidth>
-                  <Send className="w-4 h-4 mr-2" /> 신청하기
+                <Button type="submit" size="lg" fullWidth disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" /> 전송 중...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" /> 신청하기
+                    </>
+                  )}
                 </Button>
               </form>
             )}

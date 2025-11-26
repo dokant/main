@@ -1,11 +1,12 @@
+
 // Using Picsum to ensure reliable loading as per system instructions while maintaining the structure
-export const HERO_BG = "https://picsum.photos/1600/900?grayscale&blur=2"; // Cityscape feel
-export const SERVICE_ICON_VISA = "https://picsum.photos/400/300?random=1"; // Passport/Doc
-export const SERVICE_ICON_LAW = "https://picsum.photos/400/300?random=2"; // Gavel/Law
-export const TRUST_IMG = "https://picsum.photos/800/600?random=3"; // Handshake/Meeting
-export const IMMIGRATION_HEADER = "https://picsum.photos/1600/600?random=4"; // Airport/Travel
-export const ADMIN_HEADER = "https://picsum.photos/1600/600?random=5"; // Office
-export const ABOUT_PROFILE = "/jeong_chung_gyo.png"; // Updated to use the attached photo (requires file in public folder)
-export const LOCATION_MAP_PLACEHOLDER = "https://picsum.photos/800/400?random=7"; // Map
-export const CONTACT_HEADER = "https://picsum.photos/1600/600?random=8"; // Phone/Contact
-export const LOGO_IMG = "https://multimodal-image-upload.s3.us-east-1.amazonaws.com/uploads/19c72054-d1d7-4007-aa98-b80c103362a2/ci_png.png"; // Provided Administrative Logo
+export const HERO_BG = "https://raw.githubusercontent.com/dokant/main/main/src/images/001.png";
+export const SERVICE_ICON_VISA = "https://raw.githubusercontent.com/dokant/main/main/src/images/003.png"; // Passport/Doc
+export const SERVICE_ICON_LAW = "https://raw.githubusercontent.com/dokant/main/main/src/images/004.png"; // Gavel/Law
+export const TRUST_IMG = "https://raw.githubusercontent.com/dokant/main/main/src/images/002.png"; // Handshake/Meeting
+export const IMMIGRATION_HEADER = "https://raw.githubusercontent.com/dokant/main/main/src/images/005.png"; // Airport/Travel
+export const ADMIN_HEADER = "https://raw.githubusercontent.com/dokant/main/main/src/images/006.png"; // Office
+export const ABOUT_PROFILE = "https://raw.githubusercontent.com/dokant/main/main/src/images/008.png"; 
+export const LOCATION_MAP_PLACEHOLDER = "https://raw.githubusercontent.com/dokant/main/main/src/images/009.png"; // Map
+export const CONTACT_HEADER = "https://raw.githubusercontent.com/dokant/main/main/src/images/007.png"; // Phone/Contact
+export const LOGO_IMG = "https://raw.githubusercontent.com/dokant/main/main/src/images/010.png"; // Provided Administrative Logo

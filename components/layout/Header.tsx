@@ -42,6 +42,7 @@ const Header: React.FC = () => {
             <img src={LOGO_IMG} alt="청솔행정사사무소 로고" className="w-10 h-10 object-contain" />
             <div className="flex flex-col">
               <span className="text-xl font-bold text-primary leading-none">청솔행정사사무소</span>
+              <span className="text-sm font-medium text-primary mt-1 leading-none">출입국민원대행기관</span>
             </div>
           </Link>
 
